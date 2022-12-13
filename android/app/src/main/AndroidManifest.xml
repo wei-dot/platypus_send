@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.platypus.platypus_send">
    <application
-        android:label="platypus_send"
+        android:label="Platypus"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
