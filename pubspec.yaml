@@ -31,10 +31,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+# The UI framework used for this project
   flutter_launcher_icons: ^0.11.0
-
+  dotted_border: ^2.0.0+3
   bottom_animation: ^2.0.0
+# upload file package
 
 
   # The following adds the Cupertino Icons font to your application.

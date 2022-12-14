@@ -1,7 +1,8 @@
+import 'package:Platypus/bottom.dart';
 import 'package:bottom_animation/source/bottomnav_item.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:Platypus/bottom.dart';
 
 void main() {
   runApp(const MyApp());
@@ -53,11 +54,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var items = <BottomNavItem>[
     BottomNavItem(
-        title: 'upload',
-        widget: const Icon(
-          Icons.cloud_upload_outlined,
-          color: Colors.white,
-        ),
+      title: 'upload',
+      widget: const Icon(
+        Icons.cloud_upload_outlined,
+        color: Colors.white,
+      ),
     ),
     BottomNavItem(
         title: 'list',
@@ -100,8 +101,40 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: const Color(0xFF294C60),
       appBar: AppBar(
+        title: const Padding(
+          padding: EdgeInsets.only(left: 20),
+          child: Text(
+            'Platypus Send',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontFamily: 'CascadiaCode',
+            ),
+          ),
+        ),
         backgroundColor: const Color(0xFF294C60),
         elevation: 0,
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(
+              Icons.search,
+              color: Colors.white,
+              size: 35,
+            ),
+            onPressed: () {},
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10, right: 20),
+            child: IconButton(
+              icon: const Icon(
+                Icons.settings,
+                color: Colors.white,
+                size: 35,
+              ),
+              onPressed: () {},
+            ),
+          ),
+        ],
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -123,16 +156,43 @@ class _MyHomePageState extends State<MyHomePage> {
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+          children: <Widget>[
+            SizedBox(
+              height: 300,
+              width: 300,
+              child: DottedBorder(
+                borderType: BorderType.RRect,
+                radius: const Radius.circular(20),
+                dashPattern: const [20, 20],
+                color: Colors.white,
+                strokeWidth: 5,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children:const <Widget>[
+                      Icon(
+                        Icons.cloud_upload_outlined,
+                        color: Colors.white,
+                        size: 150,
+                      ),
+                      Text(
+                        'Click to upload Files',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontFamily: 'CascadiaCode',
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
-
           ],
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(left:30,right: 30,bottom: 30),
+        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 30),
         child: MyBottom(
           selectedIndex: cIndex,
           items: items,
@@ -156,10 +216,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           itemHoverWidth: 135,
           itemHoverBorderRadius: 20,
+          hoverAlignmentDuration: 300,
         ),
       ),
     );
   }
 }
-
-
