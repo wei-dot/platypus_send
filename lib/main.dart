@@ -1,5 +1,7 @@
+import 'package:bottom_animation/source/bottomnav_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:Platypus/bottom.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Platypus Send',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -25,15 +27,15 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.blue,
-        primaryColor: const Color(0xFF213B4A),
+        primaryColor: const Color(0xFF294C60),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -44,19 +46,32 @@ class MyHomePage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  final String title;
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  var items = <BottomNavItem>[
+    BottomNavItem(
+        title: 'upload',
+        widget: const Icon(
+          Icons.cloud_upload_outlined,
+          color: Colors.white,
+        ),
+    ),
+    BottomNavItem(
+        title: 'list',
+        widget: const Icon(
+          Icons.list_alt_outlined,
+          color: Colors.white,
+        )),
+  ];
 
+  var cIndex;
   static const SystemUiOverlayStyle overlayStyle = SystemUiOverlayStyle(
-    systemNavigationBarColor: Color(0XFF213B4A),
-    systemNavigationBarIconBrightness: Brightness.light,
-    systemNavigationBarDividerColor: Color(0XFF213B4A),
+    systemNavigationBarColor: Color(0XFF294C60),
+    systemNavigationBarIconBrightness: Brightness.dark,
+    systemNavigationBarDividerColor: Color(0XFF294C60),
     statusBarColor: Color(0xFF213B4A),
     // Status bar brightness (optional)
     statusBarIconBrightness: Brightness.dark,
@@ -65,19 +80,9 @@ class _MyHomePageState extends State<MyHomePage> {
     // For iOS (dark icons)
   );
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   void initState() {
+    cIndex = 0;
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       SystemChrome.setSystemUIOverlayStyle(overlayStyle);
@@ -93,12 +98,11 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      backgroundColor: const Color(0xFF213B4A),
+      backgroundColor: const Color(0xFF294C60),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF213B4A),
+        backgroundColor: const Color(0xFF294C60),
         elevation: 0,
       ),
-
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
@@ -119,26 +123,43 @@ class _MyHomePageState extends State<MyHomePage> {
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
+          children: const <Widget>[
+            Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(left:30,right: 30,bottom: 30),
+        child: MyBottom(
+          selectedIndex: cIndex,
+          items: items,
+          backgroundColor: const Color(0xFF213B4A),
+          onItemSelect: (value) {
+            setState(() {
+              cIndex = value;
+            });
+          },
+          itemHoverColor: const Color(0xFF4A819F),
+          itemHoverColorOpacity: .5,
+          activeIconColor: Colors.black,
+          deActiveIconColor: Colors.black38,
+          barHeight: 90,
+          barRadius: 20,
+          textStyle: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w400,
+            fontSize: 16,
+            fontFamily: "CascadiaCode",
+          ),
+          itemHoverWidth: 135,
+          itemHoverBorderRadius: 20,
+        ),
       ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: [],
-      //   backgroundColor: const Color(0xFF213B4A),
-      // ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
+
+
