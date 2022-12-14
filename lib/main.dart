@@ -1,39 +1,48 @@
 import 'package:Platypus/bottom.dart';
 import 'package:bottom_animation/source/bottomnav_item.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:file_picker/file_picker.dart';
+import 'dart:io';
+import 'package:http/http.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:dotted_border/dotted_border.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Platypus Send',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-        primaryColor: const Color(0xFF294C60),
-      ),
-      home: const MyHomePage(),
-    );
-  }
+  State<MyApp> createState() => _MyAppState();
 }
+ class _MyAppState extends State<MyApp> {
+   // This widget is the root of your application.
+   @override
+   Widget build(BuildContext context) {
+
+     return MaterialApp(
+       debugShowCheckedModeBanner: false,
+       title: 'Platypus Send',
+       theme: ThemeData(
+         // This is the theme of your application.
+         //
+         // Try running your application with "flutter run". You'll see the
+         // application has a blue toolbar. Then, without quitting the app, try
+         // changing the primarySwatch below to Colors.green and then invoke
+         // "hot reload" (press "r" in the console where you ran "flutter run",
+         // or simply save your changes to "hot reload" in a Flutter IDE).
+         // Notice that the counter didn't reset back to zero; the application
+         // is not restarted.
+         primarySwatch: Colors.blue,
+         primaryColor: const Color(0xFF294C60),
+       ),
+       home: const MyHomePage(),
+     );
+   }
+ }
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -92,12 +101,61 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+
+    String? filePath;
+    Future uploadFileAndroid() async {
+      FilePickerResult? result = await FilePicker.platform.pickFiles();
+      if (result != null) {
+        File file = File(result.files.single.path!);
+        filePath = file.path;
+      } else {
+        // User canceled the picker
+      }
+      var request = MultipartRequest(
+          'POST', Uri.parse('http://192.168.0.27:8253/upload\?path\=/'));
+      request.files.add(await MultipartFile.fromPath('file', filePath!));
+      var res = await request.send();
+      print(res.statusCode);
+    }
+
+    var uploadBox = InkWell(
+      onTap: () {
+        if (Platform.isAndroid) {
+          uploadFileAndroid();
+        } else if (kIsWeb) {}
+      },
+      child: DottedBorder(
+        borderType: BorderType.RRect,
+        radius: const Radius.circular(20),
+        dashPattern: const [20, 20],
+        color: Colors.white,
+        strokeWidth: 5,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const <Widget>[
+              Icon(
+                Icons.cloud_upload_outlined,
+                color: Colors.white,
+                size: 150,
+              ),
+              Text(
+                'Click to upload Files',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontFamily: 'CascadiaCode',
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+
+
+
     return Scaffold(
       backgroundColor: const Color(0xFF294C60),
       appBar: AppBar(
@@ -136,54 +194,45 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
 
+      body: Center(
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SizedBox(
               height: 300,
               width: 300,
-              child: DottedBorder(
-                borderType: BorderType.RRect,
-                radius: const Radius.circular(20),
-                dashPattern: const [20, 20],
-                color: Colors.white,
-                strokeWidth: 5,
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children:const <Widget>[
-                      Icon(
-                        Icons.cloud_upload_outlined,
-                        color: Colors.white,
-                        size: 150,
-                      ),
-                      Text(
-                        'Click to upload Files',
-                        style: TextStyle(
+              child: InkWell(
+                onTap: () {
+                  if (Platform.isAndroid) {
+                    uploadFileAndroid();
+                  } else if (kIsWeb) {}
+                },
+                child: DottedBorder(
+                  borderType: BorderType.RRect,
+                  radius: const Radius.circular(20),
+                  dashPattern: const [20, 20],
+                  color: Colors.white,
+                  strokeWidth: 5,
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const <Widget>[
+                        Icon(
+                          Icons.cloud_upload_outlined,
                           color: Colors.white,
-                          fontSize: 20,
-                          fontFamily: 'CascadiaCode',
+                          size: 150,
                         ),
-                      ),
-                    ],
+                        Text(
+                          'Click to upload Files',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontFamily: 'CascadiaCode',
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
