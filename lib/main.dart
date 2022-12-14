@@ -112,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // User canceled the picker
       }
       var request = MultipartRequest(
-          'POST', Uri.parse('http://192.168.0.27:8253/upload\?path\=/'));
+          'POST', Uri.parse('https://platypus.bap5.cc/upload\?path\=/'));
       request.files.add(await MultipartFile.fromPath('file', filePath!));
       var res = await request.send();
       print(res.statusCode);
