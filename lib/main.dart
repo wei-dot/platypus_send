@@ -1,12 +1,8 @@
 import 'package:Platypus/bottom.dart';
+import 'package:Platypus/upload.dart';
 import 'package:bottom_animation/source/bottomnav_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:file_picker/file_picker.dart';
-import 'dart:io';
-import 'package:http/http.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:dotted_border/dotted_border.dart';
 
 void main() {
   runApp(const MyApp());
@@ -101,87 +97,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    String? filePath;
-    Future uploadFileAndroid() async {
-      FilePickerResult? result = await FilePicker.platform.pickFiles();
-      if (result != null) {
-        File file = File(result.files.single.path!);
-        filePath = file.path;
-      } else {
-        // User canceled the picker
-        print('User canceled the picker');
-        var alert = AlertDialog(
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0))),
-            backgroundColor: Color(0XFF294C60),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text('沒有檔案被選擇',style:
-                TextStyle(color: Colors.white,fontSize: 20),),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(Colors.white.value),
-                  ),
-                  child: const Text('確定',
-                      style: TextStyle(
-                        color: Colors.black,
-                      )),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            ));
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return alert;
-          },
-        );
-      }
-      var request = MultipartRequest(
-          'POST', Uri.parse('https://platypus.bap5.cc/upload\?path\=/'));
-      request.files.add(await MultipartFile.fromPath('file', filePath!));
-      var res = await request.send();
-      print(res.statusCode);
-    }
-
-    var uploadBox = InkWell(
-      onTap: () {
-        if (Platform.isAndroid) {
-          uploadFileAndroid();
-        } else if (kIsWeb) {}
-      },
-      child: DottedBorder(
-        borderType: BorderType.RRect,
-        radius: const Radius.circular(20),
-        dashPattern: const [20, 20],
-        color: Colors.white,
-        strokeWidth: 5,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const <Widget>[
-              Icon(
-                Icons.cloud_upload_outlined,
-                color: Colors.white,
-                size: 150,
-              ),
-              Text(
-                'Click to upload Files',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontFamily: 'CascadiaCode',
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-
     return Scaffold(
       backgroundColor: const Color(0xFF294C60),
       appBar: AppBar(
@@ -192,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
             style: TextStyle(
               color: Colors.white,
               fontSize: 20,
-              fontFamily: 'CascadiaCode',
+              fontFamily: 'CascadeCode',
             ),
           ),
         ),
@@ -220,50 +135,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              height: 300,
-              width: 300,
-              child: InkWell(
-                onTap: () {
-                  if (Platform.isAndroid) {
-                    uploadFileAndroid();
-                  } else if (kIsWeb) {}
-                },
-                child: DottedBorder(
-                  borderType: BorderType.RRect,
-                  radius: const Radius.circular(20),
-                  dashPattern: const [20, 20],
-                  color: Colors.white,
-                  strokeWidth: 5,
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const <Widget>[
-                        Icon(
-                          Icons.cloud_upload_outlined,
-                          color: Colors.white,
-                          size: 150,
-                        ),
-                        Text(
-                          'Click to upload Files',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontFamily: 'CascadiaCode',
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+      body: const Center(
+        child: Upload(),
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(left: 20, right: 20, bottom: 30),
@@ -286,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.white,
             fontWeight: FontWeight.w400,
             fontSize: 16,
-            fontFamily: "CascadiaCode",
+            fontFamily: "CascadeCode",
           ),
           itemHoverWidth: 135,
           itemHoverBorderRadius: 20,
