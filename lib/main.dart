@@ -18,31 +18,31 @@ class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 }
- class _MyAppState extends State<MyApp> {
-   // This widget is the root of your application.
-   @override
-   Widget build(BuildContext context) {
 
-     return MaterialApp(
-       debugShowCheckedModeBanner: false,
-       title: 'Platypus Send',
-       theme: ThemeData(
-         // This is the theme of your application.
-         //
-         // Try running your application with "flutter run". You'll see the
-         // application has a blue toolbar. Then, without quitting the app, try
-         // changing the primarySwatch below to Colors.green and then invoke
-         // "hot reload" (press "r" in the console where you ran "flutter run",
-         // or simply save your changes to "hot reload" in a Flutter IDE).
-         // Notice that the counter didn't reset back to zero; the application
-         // is not restarted.
-         primarySwatch: Colors.blue,
-         primaryColor: const Color(0xFF294C60),
-       ),
-       home: const MyHomePage(),
-     );
-   }
- }
+class _MyAppState extends State<MyApp> {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Platypus Send',
+      theme: ThemeData(
+        // This is the theme of your application.
+        //
+        // Try running your application with "flutter run". You'll see the
+        // application has a blue toolbar. Then, without quitting the app, try
+        // changing the primarySwatch below to Colors.green and then invoke
+        // "hot reload" (press "r" in the console where you ran "flutter run",
+        // or simply save your changes to "hot reload" in a Flutter IDE).
+        // Notice that the counter didn't reset back to zero; the application
+        // is not restarted.
+        primarySwatch: Colors.blue,
+        primaryColor: const Color(0xFF294C60),
+      ),
+      home: const MyHomePage(),
+    );
+  }
+}
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -101,7 +101,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     String? filePath;
     Future uploadFileAndroid() async {
       FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -110,6 +109,36 @@ class _MyHomePageState extends State<MyHomePage> {
         filePath = file.path;
       } else {
         // User canceled the picker
+        print('User canceled the picker');
+        var alert = AlertDialog(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.0))),
+            backgroundColor: Color(0XFF294C60),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text('沒有檔案被選擇',style:
+                TextStyle(color: Colors.white,fontSize: 20),),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(Colors.white.value),
+                  ),
+                  child: const Text('確定',
+                      style: TextStyle(
+                        color: Colors.black,
+                      )),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ));
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return alert;
+          },
+        );
       }
       var request = MultipartRequest(
           'POST', Uri.parse('https://platypus.bap5.cc/upload\?path\=/'));
@@ -153,9 +182,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
 
-
-
-
     return Scaffold(
       backgroundColor: const Color(0xFF294C60),
       appBar: AppBar(
@@ -194,7 +220,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
