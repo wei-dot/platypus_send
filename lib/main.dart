@@ -1,4 +1,5 @@
 import 'package:Platypus/bottom.dart';
+import 'package:Platypus/fileList.dart';
 import 'package:Platypus/upload.dart';
 import 'package:bottom_animation/source/bottomnav_item.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +57,8 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+
+
 class _MyHomePageState extends State<MyHomePage> {
   var items = <BottomNavItem>[
     BottomNavItem(
@@ -93,6 +96,17 @@ class _MyHomePageState extends State<MyHomePage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       SystemChrome.setSystemUIOverlayStyle(overlayStyle);
     });
+  }
+
+  Widget _body(){
+    switch(cIndex){
+      case 0:
+        return const Upload();
+      case 1:
+        return const FileList();
+      default:
+        return const Text('error');
+    }
   }
 
   @override
@@ -135,8 +149,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: const Center(
-        child: Upload(),
+      body: Center(
+        child: _body(),
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(left: 20, right: 20, bottom: 30),

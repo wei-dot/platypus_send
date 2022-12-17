@@ -37,6 +37,5 @@ class _AlertState extends State<Alert> {
             ),
           ],
         ));
-    ;
   }
 }
