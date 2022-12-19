@@ -1,6 +1,7 @@
 import 'package:Platypus/bottom.dart';
 import 'package:Platypus/file_list.dart';
 import 'package:Platypus/upload.dart';
+import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:bottom_animation/source/bottomnav_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -108,6 +109,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController textController = TextEditingController();
+
     return Scaffold(
       backgroundColor: const Color(0xFF294C60),
       appBar: AppBar(
@@ -125,14 +128,23 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: const Color(0xFF294C60),
         elevation: 0,
         actions: <Widget>[
-          IconButton(
-            icon: const Icon(
-              Icons.search,
-              color: Colors.white,
-              size: 35,
+            /// In AnimSearchBar widget, the width, textController, onSuffixTap are required properties.
+            /// You have also control over the suffixIcon, prefixIcon, helpText and animationDurationInMilli
+            AnimSearchBar(
+              rtl: true,
+              width: 300,
+              color: Colors.transparent,
+              boxShadow: false,
+              prefixIcon: const Icon(Icons.search),
+              textController: textController,
+              onSuffixTap: () {
+                setState(() {
+                  textController.clear();
+                });
+              },
+              onSubmitted: (String) {},
             ),
-            onPressed: () {},
-          ),
+
           Padding(
             padding: const EdgeInsets.only(left: 10, right: 20),
             child: IconButton(
