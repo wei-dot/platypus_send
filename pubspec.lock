@@ -121,7 +121,7 @@ packages:
     source: hosted
     version: "2.0.1"
   file_picker:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: file_picker
       url: "https://pub.dartlang.org"
@@ -140,7 +140,7 @@ packages:
     source: hosted
     version: "0.11.0"
   flutter_lints:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_lints
       url: "https://pub.dartlang.org"
@@ -164,7 +164,7 @@ packages:
     source: sdk
     version: "0.0.0"
   http:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: http
       url: "https://pub.dartlang.org"
@@ -269,7 +269,7 @@ packages:
     source: hosted
     version: "3.6.2"
   process_run:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: process_run
       url: "https://pub.dartlang.org"
