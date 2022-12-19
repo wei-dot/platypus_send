@@ -135,7 +135,8 @@ class _MyHomePageState extends State<MyHomePage> {
               width: 300,
               color: Colors.transparent,
               boxShadow: false,
-              prefixIcon: const Icon(Icons.search),
+              prefixIcon: const Icon(Icons.search, color: Colors.white,
+                size: 35,),
               textController: textController,
               onSuffixTap: () {
                 setState(() {
