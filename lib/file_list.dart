@@ -21,7 +21,7 @@ class _FileListState extends State<FileList> {
           filePath: "C:\\Users\\user\\Desktop\\test.txt",
           fileURL: 'image'),
       UploadFile(
-          fileName: 'test',
+          fileName: 'temp1',
           filePath: "C:\\Users\\user\\Desktop\\test.txt",
           fileURL: 'image')
     ]);
@@ -40,10 +40,17 @@ class _FileListState extends State<FileList> {
             const SizedBox(
               height: 10,
             ),
-            ..._files.map((e) => MyListItem(
-                  fileName: e.fileName,
-                  fileURL: e.fileURL,
-                ))
+            Expanded(
+              child: ListView.builder(
+                itemCount: _files.length,
+                itemBuilder: (context, index) {
+                  return MyListItem(
+                    fileName: _files[index].fileName,
+                    fileURL: _files[index].fileURL,
+                  );
+                },
+              ),
+            )
           ],
         ));
   }
