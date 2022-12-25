@@ -1,3 +1,4 @@
+import 'package:Platypus/network.dart';
 import 'package:flutter/material.dart';
 
 import 'alert.dart';
@@ -13,10 +14,11 @@ class MenuItem {
 }
 
 class MenuItems {
-  static const List<MenuItem> firstItems = [home, about];
+  static const List<MenuItem> firstItems = [clear,setting, about];
 
-  static const home = MenuItem(text: 'Setting', icon: Icons.settings);
+  static const setting = MenuItem(text: 'Setting', icon: Icons.settings);
   static const about = MenuItem(text: 'About', icon: Icons.info);
+  static const clear = MenuItem(text: 'Clear', icon: Icons.clear);
 
   static Widget buildItem(MenuItem item) {
     return Row(
@@ -38,7 +40,29 @@ class MenuItems {
 
   static onChanged(BuildContext context, MenuItem item) {
     switch (item) {
-      case MenuItems.home:
+      case MenuItems.setting:
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Alert(
+              content: [
+                const Text('Current Server:',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'CascadeCode',
+                        color: Colors.white)),
+                SelectableText(
+                  ApiClient.path,
+                  style: const TextStyle(
+                      fontSize: 15,
+                      fontFamily: 'CascadeCode',
+                      color: Colors.white),
+                )
+              ],
+            );
+          },
+        );
         //Do something
         break;
       case MenuItems.about:
@@ -46,10 +70,27 @@ class MenuItems {
           context: context,
           builder: (BuildContext context) {
             return const Alert(
-              message: '開發人員: silver,weidot,221934420a\n版本: 1.0.0\n項目位置:\nhttps://github.com/wei-dot/platypus_send',
+              content: [
+                Text('開發人員: silver,wei-dot,221934420a\n版本: 1.0.0\n項目位置:',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'CascadeCode',
+                        color: Colors.white)),
+                SelectableText(
+                  'https://github.com/wei-dot/platypus_send',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: 'CascadeCode',
+                      color: Colors.white),
+                )
+              ],
             );
           },
         );
+        break;
+      case MenuItems.clear:
+        //Do something
+        ApiClient.clearFiles();
         break;
     }
   }

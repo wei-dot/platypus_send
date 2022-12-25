@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'listitem.dart';
+import 'network.dart';
+
 class FileList extends StatefulWidget {
   const FileList({super.key});
 
@@ -8,37 +11,38 @@ class FileList extends StatefulWidget {
 }
 
 class _FileListState extends State<FileList> {
-  List<String> items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
+  final List<UploadFile> _files = ApiClient.files;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        return Card(
-          color: Colors.black26,
-          child: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  items[index],
-                  style: const TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
+    return Container(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Uploaded File',
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'CascadeCode',
+                fontSize: 20,
               ),
-              IconButton(
-                icon: const Icon(Icons.qr_code, color: Colors.white),
-                onPressed: () {},
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: _files.length,
+                itemBuilder: (context, index) {
+                  return MyListItem(
+                    fileName: _files[index].fileName,
+                    fileURL: _files[index].fileURL,
+                  );
+                },
               ),
-              IconButton(
-                icon: const Icon(Icons.share, color: Colors.white),
-                onPressed: () {},
-              ),
-            ],
-          ),
-        );
-      },
-    );
+            )
+          ],
+        ));
   }
 }

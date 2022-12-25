@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Alert extends StatefulWidget {
-  final String message;
+  final List<Widget> content;
 
-  const Alert({Key? key, required this.message}) : super(key: key);
+  const Alert({Key? key, required this.content}) : super(key: key);
 
   @override
   State<Alert> createState() => _AlertState();
@@ -19,22 +19,24 @@ class _AlertState extends State<Alert> {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              widget.message,
-              style: const TextStyle(color: Colors.white, fontSize: 20),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(Colors.white.value),
+            ...widget.content,
+            Padding(
+              padding: const EdgeInsets.only(top: 10,bottom: 10),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(Colors.white.value),
+                ),
+                child: const Text('OK',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'CascadeCode',
+                    )),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
               ),
-              child: const Text('確定',
-                  style: TextStyle(
-                    color: Colors.black,
-                  )),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
             ),
+
           ],
         ));
   }
