@@ -1,9 +1,10 @@
 import 'dart:io';
+
 import 'package:Platypus/alert.dart';
 import 'package:Platypus/network.dart';
 import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 
 class Upload extends StatefulWidget {
   const Upload({Key? key}) : super(key: key);
@@ -13,7 +14,6 @@ class Upload extends StatefulWidget {
 }
 
 class _UploadState extends State<Upload> {
-
   void pickFiles() async {
     File? file;
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -24,7 +24,13 @@ class _UploadState extends State<Upload> {
         context: context,
         builder: (BuildContext context) {
           return const Alert(
-            message: '沒有檔案被選擇',
+            content: [
+              Text('No file selected',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: 'CascadeCode',
+                      color: Colors.white))
+            ],
           );
         },
       );

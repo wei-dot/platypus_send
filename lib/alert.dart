@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Alert extends StatefulWidget {
-  final String message;
+  final List<Widget> content;
 
-  const Alert({Key? key, required this.message}) : super(key: key);
+  const Alert({Key? key, required this.content}) : super(key: key);
 
   @override
   State<Alert> createState() => _AlertState();
@@ -19,10 +19,7 @@ class _AlertState extends State<Alert> {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              widget.message,
-              style: const TextStyle(color: Colors.white, fontSize: 20),
-            ),
+            ...widget.content,
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(Colors.white.value),

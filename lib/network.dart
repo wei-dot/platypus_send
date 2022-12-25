@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:http/http.dart';
 
 class ApiClient {
@@ -10,5 +11,12 @@ class ApiClient {
     var response = await request.send();
     var responseBody = await response.stream.bytesToString();
     return responseBody;
+
+
   }
+  //  settings path function
+  static void setPath(String newPath) {
+    path = newPath;
+  }
+
 }

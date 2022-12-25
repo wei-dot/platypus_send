@@ -46,7 +46,19 @@ class MenuItems {
           context: context,
           builder: (BuildContext context) {
             return const Alert(
-              message: '開發人員: silver,weidot,221934420a\n版本: 1.0.0\n項目位置:\nhttps://github.com/wei-dot/platypus_send',
+              content: [
+
+                Text(
+                    '開發人員: silver,wei-dot,221934420a\n版本: 1.0.0\n項目位置:',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'CascadeCode',
+                        color: Colors.white)),
+                SelectableText(
+                  'https://github.com/wei-dot/platypus_send',
+                  style: TextStyle(fontSize: 20,fontFamily: 'CascadeCode',color: Colors.white),
+                )
+              ],
             );
           },
         );
