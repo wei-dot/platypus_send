@@ -1,5 +1,7 @@
 import 'package:Platypus/bottom.dart';
 import 'package:Platypus/file_list.dart';
+import 'package:Platypus/search.dart';
+import 'package:Platypus/search_result.dart';
 import 'package:Platypus/upload.dart';
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:bottom_animation/source/bottomnav_item.dart';
@@ -62,6 +64,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var searchingKeyWord = '';
   var items = <BottomNavItem>[
     BottomNavItem(
       title: 'upload',
@@ -106,8 +109,12 @@ class _MyHomePageState extends State<MyHomePage> {
         return const Upload();
       case 1:
         return const FileList();
+      case 98:
+        return SearchResult2(searchingKeyWord);
+      case 99:
+        return SearchResult(searchingKeyWord);
       default:
-        return const Text('error');
+        return const Upload();
     }
   }
 
@@ -150,7 +157,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 textController.clear();
               });
             },
-            onSubmitted: (String) {},
+            onSubmitted: (String s) {
+              setState(() {
+                searchingKeyWord = textController.text;
+                if (cIndex == 99){
+                  cIndex = 98;
+                } else {
+                  cIndex = 99;
+                }
+              });
+            },
           ),
 
           Padding(
@@ -163,20 +179,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: Colors.white,
                 ),
                 customItemsHeights: [
-                  ...List<double>.filled(menu_item.MenuItems.firstItems.length, 48),
+                  ...List<double>.filled(
+                      menu_item.MenuItems.firstItems.length, 48),
                 ],
                 items: [
                   ...menu_item.MenuItems.firstItems.map(
-                        (item) =>
-                        DropdownMenuItem<menu_item.MenuItem>(
-                          value: item,
-                          child: menu_item.MenuItems.buildItem(item),
-                        ),
+                    (item) => DropdownMenuItem<menu_item.MenuItem>(
+                      value: item,
+                      child: menu_item.MenuItems.buildItem(item),
+                    ),
                   ),
-
                 ],
                 onChanged: (value) {
-                  menu_item.MenuItems.onChanged(context, value as menu_item.MenuItem);
+                  menu_item.MenuItems.onChanged(
+                      context, value as menu_item.MenuItem);
                 },
                 itemHeight: 48,
                 itemPadding: const EdgeInsets.only(left: 16, right: 16),
