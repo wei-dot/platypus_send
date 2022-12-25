@@ -93,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
+    cIndex = 0;
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       SystemChrome.setSystemUIOverlayStyle(overlayStyle);
