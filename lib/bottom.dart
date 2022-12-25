@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:bottom_animation/bottom_animation.dart';
 import 'package:flutter/material.dart';
 

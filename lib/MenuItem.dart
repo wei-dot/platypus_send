@@ -14,10 +14,11 @@ class MenuItem {
 }
 
 class MenuItems {
-  static const List<MenuItem> firstItems = [setting, about];
+  static const List<MenuItem> firstItems = [clear,setting, about];
 
   static const setting = MenuItem(text: 'Setting', icon: Icons.settings);
   static const about = MenuItem(text: 'About', icon: Icons.info);
+  static const clear = MenuItem(text: 'Clear', icon: Icons.clear);
 
   static Widget buildItem(MenuItem item) {
     return Row(
@@ -45,7 +46,8 @@ class MenuItems {
           builder: (BuildContext context) {
             return Alert(
               content: [
-                const Text('Current Server:',textAlign: TextAlign.left,
+                const Text('Current Server:',
+                    textAlign: TextAlign.left,
                     style: TextStyle(
                         fontSize: 20,
                         fontFamily: 'CascadeCode',
@@ -85,6 +87,10 @@ class MenuItems {
             );
           },
         );
+        break;
+      case MenuItems.clear:
+        //Do something
+        ApiClient.clearFiles();
         break;
     }
   }
