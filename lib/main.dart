@@ -163,7 +163,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 customItemsHeights: [
                   ...List<double>.filled(menu_item.MenuItems.firstItems.length, 48),
-
                 ],
                 items: [
                   ...menu_item.MenuItems.firstItems.map(

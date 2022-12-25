@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'alert.dart';
+
 class MenuItem {
   final String text;
   final IconData icon;
@@ -40,7 +42,14 @@ class MenuItems {
         //Do something
         break;
       case MenuItems.about:
-        //Do something
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const Alert(
+              message: '開發人員: silver,weidot,221934420a\n版本: 1.0.0\n項目位置:\nhttps://github.com/wei-dot/platypus_send',
+            );
+          },
+        );
         break;
     }
   }
