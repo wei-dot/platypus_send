@@ -3,8 +3,11 @@ import 'package:Platypus/file_list.dart';
 import 'package:Platypus/upload.dart';
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:bottom_animation/source/bottomnav_item.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'MenuItem.dart' as menu_item;
 
 void main() {
   runApp(const MyApp());
@@ -128,33 +131,64 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: const Color(0xFF294C60),
         elevation: 0,
         actions: <Widget>[
-            /// In AnimSearchBar widget, the width, textController, onSuffixTap are required properties.
-            /// You have also control over the suffixIcon, prefixIcon, helpText and animationDurationInMilli
-            AnimSearchBar(
-              rtl: true,
-              width: 300,
-              color: Colors.transparent,
-              boxShadow: false,
-              prefixIcon: const Icon(Icons.search, color: Colors.white,
-                size: 35,),
-              textController: textController,
-              onSuffixTap: () {
-                setState(() {
-                  textController.clear();
-                });
-              },
-              onSubmitted: (String) {},
+          /// In AnimSearchBar widget, the width, textController, onSuffixTap are required properties.
+          /// You have also control over the suffixIcon, prefixIcon, helpText and animationDurationInMilli
+          AnimSearchBar(
+            rtl: true,
+            width: MediaQuery.of(context).size.width * 0.7,
+            color: Colors.transparent,
+            boxShadow: false,
+            prefixIcon: const Icon(
+              Icons.search,
+              color: Colors.white,
+              size: 35,
             ),
+            textController: textController,
+            onSuffixTap: () {
+              setState(() {
+                textController.clear();
+              });
+            },
+            onSubmitted: (String) {},
+          ),
 
           Padding(
             padding: const EdgeInsets.only(left: 10, right: 20),
-            child: IconButton(
-              icon: const Icon(
-                Icons.settings,
-                color: Colors.white,
-                size: 35,
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton2(
+                customButton: const Icon(
+                  Icons.settings,
+                  size: 35,
+                  color: Colors.white,
+                ),
+                customItemsHeights: [
+                  ...List<double>.filled(menu_item.MenuItems.firstItems.length, 48),
+
+                ],
+                items: [
+                  ...menu_item.MenuItems.firstItems.map(
+                        (item) =>
+                        DropdownMenuItem<menu_item.MenuItem>(
+                          value: item,
+                          child: menu_item.MenuItems.buildItem(item),
+                        ),
+                  ),
+
+                ],
+                onChanged: (value) {
+                  menu_item.MenuItems.onChanged(context, value as menu_item.MenuItem);
+                },
+                itemHeight: 48,
+                itemPadding: const EdgeInsets.only(left: 16, right: 16),
+                dropdownWidth: 160,
+                dropdownPadding: const EdgeInsets.symmetric(vertical: 6),
+                dropdownDecoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: Colors.white,
+                ),
+                dropdownElevation: 8,
+                offset: const Offset(0, 8),
               ),
-              onPressed: () {},
             ),
           ),
         ],
