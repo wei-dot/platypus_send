@@ -15,26 +15,17 @@ class _FileListState extends State<FileList> {
 
   @override
   Widget build(BuildContext context) {
-    ApiClient.files.addAll([
-      UploadFile(
-          fileName: 'test',
-          filePath: "C:\\Users\\user\\Desktop\\test.txt",
-          fileURL: 'image'),
-      UploadFile(
-          fileName: 'temp1',
-          filePath: "C:\\Users\\user\\Desktop\\test.txt",
-          fileURL: 'image')
-    ]);
     return Container(
         padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Uploaded File',
               style: TextStyle(
-                color: Colors.grey.shade400,
-                fontSize: 15,
+                color: Colors.white,
+                fontFamily: 'CascadeCode',
+                fontSize: 20,
               ),
             ),
             const SizedBox(

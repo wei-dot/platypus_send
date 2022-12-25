@@ -50,7 +50,7 @@ class _MyListItemState extends State<MyListItem> {
                           Text(
                             widget.fileName,
                             style: const TextStyle(
-                                fontSize: 13, color: Colors.black),
+                                fontSize: 13, color: Colors.black,fontFamily: 'CascadeCode'),
                           ),
                           const SizedBox(
                             height: 5,
@@ -58,7 +58,7 @@ class _MyListItemState extends State<MyListItem> {
                           Text(
                             '${(100 / 1024).ceil()} KB',
                             style: TextStyle(
-                                fontSize: 13, color: Colors.grey.shade500),
+                                fontSize: 13, color: Colors.grey.shade500,fontFamily: 'CascadeCode'),
                           ),
                           const SizedBox(
                             height: 5,
