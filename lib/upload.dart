@@ -25,11 +25,14 @@ class _UploadState extends State<Upload> {
         builder: (BuildContext context) {
           return const Alert(
             content: [
-              Text('No file selected',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'CascadeCode',
-                      color: Colors.white))
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: Text('No file selected',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'CascadeCode',
+                        color: Colors.white)),
+              ),
             ],
           );
         },

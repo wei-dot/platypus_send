@@ -20,18 +20,23 @@ class _AlertState extends State<Alert> {
           mainAxisSize: MainAxisSize.min,
           children: [
             ...widget.content,
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(Colors.white.value),
+            Padding(
+              padding: const EdgeInsets.only(top: 10,bottom: 10),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(Colors.white.value),
+                ),
+                child: const Text('OK',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'CascadeCode',
+                    )),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
               ),
-              child: const Text('確定',
-                  style: TextStyle(
-                    color: Colors.black,
-                  )),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
             ),
+
           ],
         ));
   }
