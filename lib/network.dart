@@ -42,12 +42,10 @@ class ApiClient {
     saveUploadFiles();
   }
 
-  static List<UploadFile>? getFiles() {
-    return files;
-  }
-
-  static void clearFiles() {
+  static void clearFiles() async {
+    prefs = await SharedPreferences.getInstance();
     files.clear();
+    prefs?.remove("files");
   }
 }
 

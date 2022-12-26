@@ -42,6 +42,7 @@ class MySettingMenuItems {
   }
 
   static onChanged(BuildContext context, MySettingMenuItem item) {
+    RegExp exp = RegExp(r'(?:(?:https?|ftp)://)?[\w/\-?=%.]+\.[\w/\-?=%.]+');
     switch (item) {
       case MySettingMenuItems.setting:
         showDialog(
@@ -64,26 +65,28 @@ class MySettingMenuItems {
                 ),
                 TextFormField(
                   controller: myController,
-                  decoration: const InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
+                  decoration: InputDecoration(
+                    enabledBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                     ),
-                    focusedBorder: UnderlineInputBorder(
+                    focusedBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                     ),
                     labelText: 'Enter your Custom Server',
-                    labelStyle: TextStyle(
+                    labelStyle: const TextStyle(
                         fontSize: 16,
                         fontFamily: 'CascadeCode',
                         color: Colors.white),
-                    suffixStyle: TextStyle(
+                    suffixStyle: const TextStyle(
                         fontSize: 20,
                         fontFamily: 'CascadeCode',
                         color: Colors.white),
-                    prefixStyle: TextStyle(
+                    prefixStyle: const TextStyle(
                         fontSize: 20,
                         fontFamily: 'CascadeCode',
                         color: Colors.white),
+                    errorText:
+                        exp.hasMatch(myController.text) ? null : 'Invalid URL',
                   ),
                   style: const TextStyle(
                       fontSize: 15,

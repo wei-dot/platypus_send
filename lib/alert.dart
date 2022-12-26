@@ -17,6 +17,7 @@ class _AlertState extends State<Alert> {
 
   @override
   Widget build(BuildContext context) {
+    RegExp exp = RegExp(r'(?:(?:https?|ftp)://)?[\w/\-?=%.]+\.[\w/\-?=%.]+');
     return AlertDialog(
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.0))),
@@ -38,7 +39,8 @@ class _AlertState extends State<Alert> {
                     )),
                 onPressed: () {
                   Navigator.of(context).pop();
-                  if (myController.text.isNotEmpty) {
+                  if (myController.text.isNotEmpty &&
+                      exp.hasMatch(myController.text)) {
                     ApiClient.setPath(myController.text);
                   }
                 },
