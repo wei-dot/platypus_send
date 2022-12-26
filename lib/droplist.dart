@@ -142,7 +142,11 @@ class _MainBodyState extends State<MainBody> {
                 child: Column(
                   children: [
                     Expanded(child: mainList[0]),
-                    Expanded(child: mainList[1]),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    mainList[1],
+                    mainList[2],
                   ],
                 ),
               ),

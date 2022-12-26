@@ -1,5 +1,6 @@
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'droplist.dart';
 
@@ -51,6 +52,18 @@ class _MyListItemState extends State<MyListItem> {
                     color: Colors.black,
                   ),
                 ),
+                IconButton(
+                    onPressed: () async {
+                      await Clipboard.setData(
+                          ClipboardData(text: widget.fileURL));
+                    }
+                    // copied successfully
+                    ,
+                    icon: const Icon(
+                      Icons.copy,
+                      color: Colors.black,
+                      size: 30,
+                    )),
               ],
               isSearchVisible: false,
             ),
