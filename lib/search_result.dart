@@ -1,4 +1,7 @@
+import 'package:Platypus/network.dart';
 import 'package:flutter/material.dart';
+
+import 'listitem.dart';
 class SearchResult extends StatefulWidget {
   String keyword = "";
   SearchResult(this.keyword, {super.key});
@@ -11,11 +14,11 @@ class SearchResult extends StatefulWidget {
   }
 }
 
+
+
 class _SearchResultState extends State<SearchResult> {
   String keyword = "";
-
   _SearchResultState(this.keyword);
-
   static List<_SearchResultState> instances = [];
 
   @override
@@ -38,11 +41,55 @@ class _SearchResultState extends State<SearchResult> {
     }
   }
 
+  final List<UploadFile> _files = ApiClient.files;
+  List<UploadFile> _searchResult = [];
+  //search file by keyword
+  void searchFile(String keyword) {
+    setState(() {
+      _searchResult = [];
+      for (UploadFile file in _files) {
+        if (file.fileName.contains(keyword)) {
+          _searchResult.add(file);
+        }
+      }
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    print("SearchResult: $keyword");
+    searchFile(keyword);
     return Container(
-      child: Text("以下為字詞$keyword的搜尋結果"),
+      child: Container(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Search Result',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'CascadeCode',
+                  fontSize: 20,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: _searchResult.length,
+                  itemBuilder: (context, index) {
+                    return MyListItem(
+                      fileName: _searchResult[index].fileName,
+                      fileURL: _searchResult[index].fileURL,
+                    );
+                  },
+                ),
+              )
+            ],
+          )
+      ),
     );
   }
 }
