@@ -55,6 +55,31 @@ class _SearchResultState extends State<SearchResult> {
     });
   }
 
+  Widget showSearchResult() {
+    if (_searchResult.isEmpty) {
+      print('empty');
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Image(image: AssetImage('assets/images/noResult.png'), height: 200, width: 200,),
+            Text("No results found.\nTry using different keywords.", style: TextStyle(color: Colors.white, fontSize: 20),),
+          ],
+        ),
+      );
+    } else {
+      return ListView.builder(
+        itemCount: _searchResult.length,
+        itemBuilder: (context, index) {
+          return MyListItem(
+            fileName: _searchResult[0].fileName,
+            fileURL: _searchResult[0].fileURL,
+          );
+        },
+      );
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -77,15 +102,7 @@ class _SearchResultState extends State<SearchResult> {
                 height: 10,
               ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: _searchResult.length,
-                  itemBuilder: (context, index) {
-                    return MyListItem(
-                      fileName: _searchResult[index].fileName,
-                      fileURL: _searchResult[index].fileURL,
-                    );
-                  },
-                ),
+                child: showSearchResult()
               )
             ],
           )
