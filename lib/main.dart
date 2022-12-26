@@ -1,7 +1,6 @@
 import 'package:Platypus/bottom.dart';
 import 'package:Platypus/file_list.dart';
 import 'package:Platypus/network.dart';
-import 'package:Platypus/search.dart';
 import 'package:Platypus/search_result.dart';
 import 'package:Platypus/upload.dart';
 import 'package:anim_search_bar/anim_search_bar.dart';
@@ -106,19 +105,26 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _body() {
+
+
     switch (cIndex) {
       case 0:
         return const Upload();
       case 1:
         return const FileList();
-      case 98:
-        return SearchResult2(searchingKeyWord);
+      // case 98:
+      //   SearchResult searchResult = SearchResult(searchingKeyWord);
+      //   searchResult.updateKeyword(searchingKeyWord);
+      //   return searchResult;
       case 99:
-        return SearchResult(searchingKeyWord);
+        SearchResult searchResult = SearchResult(searchingKeyWord);
+        searchResult.updateKeyword(searchingKeyWord);
+        return searchResult;
       default:
         return const Upload();
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -162,11 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onSubmitted: (String s) {
               setState(() {
                 searchingKeyWord = textController.text;
-                if (cIndex == 99) {
-                  cIndex = 98;
-                } else {
-                  cIndex = 99;
-                }
+                cIndex = 99;
               });
             },
           ),
