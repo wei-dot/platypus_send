@@ -112,10 +112,6 @@ class _MyHomePageState extends State<MyHomePage> {
         return const Upload();
       case 1:
         return const FileList();
-      // case 98:
-      //   SearchResult searchResult = SearchResult(searchingKeyWord);
-      //   searchResult.updateKeyword(searchingKeyWord);
-      //   return searchResult;
       case 99:
         SearchResult searchResult = SearchResult(searchingKeyWord);
         searchResult.updateKeyword(searchingKeyWord);
