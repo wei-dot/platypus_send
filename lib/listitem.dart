@@ -17,7 +17,6 @@ class _MyListItemState extends State<MyListItem> {
         padding: const EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-
           children: [
             Container(
                 padding: const EdgeInsets.all(8),
@@ -38,41 +37,29 @@ class _MyListItemState extends State<MyListItem> {
                         borderRadius: BorderRadius.circular(8),
                         child: const Icon(
                           Icons.file_copy,
-                          size: 70,
+                          size: 50,
                         )),
                     const SizedBox(
                       width: 10,
                     ),
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             widget.fileName,
                             style: const TextStyle(
-                                fontSize: 13, color: Colors.black,fontFamily: 'CascadeCode'),
+                                fontSize: 20, color: Colors.black),
                           ),
                           const SizedBox(
-                            height: 5,
+                            width: 30,
                           ),
-                          Text(
-                            '${(100 / 1024).ceil()} KB',
-                            style: TextStyle(
-                                fontSize: 13, color: Colors.grey.shade500,fontFamily: 'CascadeCode'),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Container(
-                            height: 5,
-                            clipBehavior: Clip.hardEdge,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.blue.shade50,
-                            ),
-                            // child: LinearProgressIndicator(
-                            //   value: loadingController.value,
-                            // )
+
+                          const Icon(
+                            Icons.expand_more,
+                            color: Colors.black,
+
                           ),
                         ],
                       ),

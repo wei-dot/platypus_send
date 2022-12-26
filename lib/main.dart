@@ -1,5 +1,6 @@
 import 'package:Platypus/bottom.dart';
 import 'package:Platypus/file_list.dart';
+import 'package:Platypus/network.dart';
 import 'package:Platypus/search.dart';
 import 'package:Platypus/search_result.dart';
 import 'package:Platypus/upload.dart';
@@ -8,6 +9,7 @@ import 'package:bottom_animation/source/bottomnav_item.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'MenuItem.dart' as menu_item;
 
 void main() {
@@ -100,6 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       SystemChrome.setSystemUIOverlayStyle(overlayStyle);
     });
+    ApiClient.loadUploadFiles();
   }
 
   Widget _body() {
@@ -125,12 +128,12 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: const Color(0xFF294C60),
       appBar: AppBar(
         title: const Padding(
-          padding: EdgeInsets.only(left: 20),
+          padding: EdgeInsets.only(left: 10),
           child: Text(
             'Platypus Send',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 20,
+              fontSize: 25,
               fontFamily: 'CascadeCode',
             ),
           ),
@@ -142,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
           /// You have also control over the suffixIcon, prefixIcon, helpText and animationDurationInMilli
           AnimSearchBar(
             rtl: true,
-            width: MediaQuery.of(context).size.width * 0.7,
+            width: MediaQuery.of(context).size.width * 0.8,
             color: Colors.transparent,
             boxShadow: false,
             prefixIcon: const Icon(
@@ -159,7 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onSubmitted: (String s) {
               setState(() {
                 searchingKeyWord = textController.text;
-                if (cIndex == 99){
+                if (cIndex == 99) {
                   cIndex = 98;
                 } else {
                   cIndex = 99;
@@ -196,9 +199,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 itemHeight: 48,
                 itemPadding: const EdgeInsets.only(left: 16, right: 16),
                 dropdownWidth: 160,
-                dropdownPadding: const EdgeInsets.symmetric(vertical: 6),
+                dropdownPadding:
+                    const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
                 dropdownDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.circular(20),
                   color: Colors.white,
                 ),
                 dropdownElevation: 8,

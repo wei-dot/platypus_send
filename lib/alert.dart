@@ -1,4 +1,7 @@
+import 'package:Platypus/MenuItem.dart' as menu_item;
 import 'package:flutter/material.dart';
+
+import 'network.dart';
 
 class Alert extends StatefulWidget {
   final List<Widget> content;
@@ -10,6 +13,8 @@ class Alert extends StatefulWidget {
 }
 
 class _AlertState extends State<Alert> {
+  final myController = menu_item.MenuItems.myController;
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -21,7 +26,7 @@ class _AlertState extends State<Alert> {
           children: [
             ...widget.content,
             Padding(
-              padding: const EdgeInsets.only(top: 10,bottom: 10),
+              padding: const EdgeInsets.only(top: 10, bottom: 10),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(Colors.white.value),
@@ -33,10 +38,12 @@ class _AlertState extends State<Alert> {
                     )),
                 onPressed: () {
                   Navigator.of(context).pop();
+                  if (myController.text.isNotEmpty) {
+                    ApiClient.setPath(myController.text);
+                  }
                 },
               ),
             ),
-
           ],
         ));
   }

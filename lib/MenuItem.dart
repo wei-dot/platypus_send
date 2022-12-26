@@ -14,11 +14,13 @@ class MenuItem {
 }
 
 class MenuItems {
-  static const List<MenuItem> firstItems = [clear,setting, about];
+  static const List<MenuItem> firstItems = [clear, setting, about];
 
   static const setting = MenuItem(text: 'Setting', icon: Icons.settings);
   static const about = MenuItem(text: 'About', icon: Icons.info);
   static const clear = MenuItem(text: 'Clear', icon: Icons.clear);
+
+  static final myController = TextEditingController();
 
   static Widget buildItem(MenuItem item) {
     return Row(
@@ -58,7 +60,35 @@ class MenuItems {
                       fontSize: 15,
                       fontFamily: 'CascadeCode',
                       color: Colors.white),
-                )
+                ),
+                TextFormField(
+                  controller: myController,
+                  decoration: const InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    labelText: 'Enter your Custom Server',
+                    labelStyle: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'CascadeCode',
+                        color: Colors.white),
+                    suffixStyle: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'CascadeCode',
+                        color: Colors.white),
+                    prefixStyle: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'CascadeCode',
+                        color: Colors.white),
+                  ),
+                  style: const TextStyle(
+                      fontSize: 15,
+                      fontFamily: 'CascadeCode',
+                      color: Colors.white),
+                ),
               ],
             );
           },
@@ -94,4 +124,6 @@ class MenuItems {
         break;
     }
   }
+
+
 }
