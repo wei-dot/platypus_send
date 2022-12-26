@@ -15,7 +15,6 @@ class ApiClient {
     request.files.add(await MultipartFile.fromPath('file', file.path));
     files.add(UploadFile(
         fileName: basename(file.path),
-        filePath: file.path,
         fileURL: "https://platypus.bap5.cc/${basename(file.path)}"));
     saveUploadFiles();
     var response = await request.send();
@@ -35,8 +34,6 @@ class ApiClient {
     path = prefs?.getString("url") ?? path;
     List<dynamic> filesJson = json.decode(prefs?.getString("files") ?? "[]");
     files = filesJson.map<UploadFile>((e) => UploadFile.fromJson(e)).toList();
-    String temp = files.map((e) => e.fileName).join(", ");
-    print('files: $temp');
   }
 
   //  settings path function
@@ -56,20 +53,15 @@ class ApiClient {
 
 class UploadFile {
   final String fileName;
-  final String filePath;
   final String fileURL;
 
-  UploadFile(
-      {required this.fileName, required this.filePath, this.fileURL = ''});
+  UploadFile({required this.fileName, this.fileURL = ''});
 
   Map toJson() => {
         'fileName': fileName,
-        'filePath': filePath,
         'fileURL': fileURL,
       };
 
-  static fromJson(Map json) => UploadFile(
-      fileName: json['fileName'],
-      filePath: json['filePath'],
-      fileURL: json['fileURL']);
+  static fromJson(Map json) =>
+      UploadFile(fileName: json['fileName'], fileURL: json['fileURL']);
 }
