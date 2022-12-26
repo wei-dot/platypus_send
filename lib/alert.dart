@@ -1,4 +1,4 @@
-import 'package:Platypus/MenuItem.dart' as menu_item;
+import 'package:Platypus/setting_menu.dart' as menu_item;
 import 'package:flutter/material.dart';
 
 import 'network.dart';
@@ -13,7 +13,7 @@ class Alert extends StatefulWidget {
 }
 
 class _AlertState extends State<Alert> {
-  final myController = menu_item.MenuItems.myController;
+  final myController = menu_item.MySettingMenuItems.myController;
 
   @override
   Widget build(BuildContext context) {

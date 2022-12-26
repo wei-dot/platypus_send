@@ -3,26 +3,27 @@ import 'package:flutter/material.dart';
 
 import 'alert.dart';
 
-class MenuItem {
+class MySettingMenuItem {
   final String text;
   final IconData icon;
 
-  const MenuItem({
+  const MySettingMenuItem({
     required this.text,
     required this.icon,
   });
 }
 
-class MenuItems {
-  static const List<MenuItem> firstItems = [clear, setting, about];
+class MySettingMenuItems {
+  static const List<MySettingMenuItem> firstItems = [clear, setting, about];
 
-  static const setting = MenuItem(text: 'Setting', icon: Icons.settings);
-  static const about = MenuItem(text: 'About', icon: Icons.info);
-  static const clear = MenuItem(text: 'Clear', icon: Icons.clear);
+  static const setting =
+      MySettingMenuItem(text: 'Setting', icon: Icons.settings);
+  static const about = MySettingMenuItem(text: 'About', icon: Icons.info);
+  static const clear = MySettingMenuItem(text: 'Clear', icon: Icons.clear);
 
   static final myController = TextEditingController();
 
-  static Widget buildItem(MenuItem item) {
+  static Widget buildItem(MySettingMenuItem item) {
     return Row(
       children: [
         Icon(item.icon, color: Colors.black, size: 22),
@@ -40,9 +41,9 @@ class MenuItems {
     );
   }
 
-  static onChanged(BuildContext context, MenuItem item) {
+  static onChanged(BuildContext context, MySettingMenuItem item) {
     switch (item) {
-      case MenuItems.setting:
+      case MySettingMenuItems.setting:
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -72,7 +73,7 @@ class MenuItems {
                     ),
                     labelText: 'Enter your Custom Server',
                     labelStyle: TextStyle(
-                        fontSize: 20,
+                        fontSize: 16,
                         fontFamily: 'CascadeCode',
                         color: Colors.white),
                     suffixStyle: TextStyle(
@@ -95,7 +96,7 @@ class MenuItems {
         );
         //Do something
         break;
-      case MenuItems.about:
+      case MySettingMenuItems.about:
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -118,12 +119,10 @@ class MenuItems {
           },
         );
         break;
-      case MenuItems.clear:
+      case MySettingMenuItems.clear:
         //Do something
         ApiClient.clearFiles();
         break;
     }
   }
-
-
 }

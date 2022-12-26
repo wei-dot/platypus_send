@@ -10,7 +10,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'MenuItem.dart' as menu_item;
+import 'setting_menu.dart';
 
 void main() {
   runApp(const MyApp());
@@ -181,20 +181,18 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: Colors.white,
                 ),
                 customItemsHeights: [
-                  ...List<double>.filled(
-                      menu_item.MenuItems.firstItems.length, 48),
+                  ...List<double>.filled(MySettingMenuItems.firstItems.length, 48),
                 ],
                 items: [
-                  ...menu_item.MenuItems.firstItems.map(
-                    (item) => DropdownMenuItem<menu_item.MenuItem>(
+                  ...MySettingMenuItems.firstItems.map(
+                    (item) => DropdownMenuItem<MySettingMenuItem>(
                       value: item,
-                      child: menu_item.MenuItems.buildItem(item),
+                      child: MySettingMenuItems.buildItem(item),
                     ),
                   ),
                 ],
                 onChanged: (value) {
-                  menu_item.MenuItems.onChanged(
-                      context, value as menu_item.MenuItem);
+                  MySettingMenuItems.onChanged(context, value as MySettingMenuItem);
                 },
                 itemHeight: 48,
                 itemPadding: const EdgeInsets.only(left: 16, right: 16),

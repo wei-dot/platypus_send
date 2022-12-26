@@ -47,19 +47,20 @@ class _MyListItemState extends State<MyListItem> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            widget.fileName,
-                            style: const TextStyle(
-                                fontSize: 20, color: Colors.black),
-                          ),
-                          const SizedBox(
-                            width: 30,
-                          ),
-
+                          Expanded(
+                              child: Column(
+                            children: [
+                              Text(
+                                widget.fileName,
+                                style: const TextStyle(
+                                    fontSize: 20, color: Colors.black),
+                              ),
+                            ],
+                          )),
                           const Icon(
                             Icons.expand_more,
                             color: Colors.black,
-
+                            size: 25,
                           ),
                         ],
                       ),
