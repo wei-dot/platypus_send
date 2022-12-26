@@ -1,7 +1,7 @@
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'alert.dart';
+import 'droplist.dart';
 
 class MyListItem extends StatefulWidget {
   final String fileName;
@@ -18,33 +18,71 @@ class _MyListItemState extends State<MyListItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return Alert(
-                  content: [
-                    BarcodeWidget(
-                      barcode: Barcode.qrCode(), // Barcode type and settings
-                      data: widget.fileURL, // Content
-                      width: 200,
-                      height: 200,
-                      color: Colors.white,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                      height: 20,
-                    ),
-                    SelectableText(
-                      widget.fileURL,
-                      style: const TextStyle(
-                        fontFamily: 'CascadeCode',
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                );
-              });
+          DropDownState(
+            DropDown(
+              bottomSheetTitle: Text(
+                widget.fileName,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                ),
+              ),
+              submitButtonChild: const Text(
+                'Done',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              data: [
+                BarcodeWidget(
+                  barcode: Barcode.qrCode(),
+                  // Barcode type and settings
+                  data: widget.fileURL,
+                  // Content
+                  width: 200,
+                  height: 200,
+                  color: Colors.black,
+                ),
+                SelectableText(
+                  widget.fileURL,
+                  style: const TextStyle(
+                    fontFamily: 'CascadeCode',
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+              isSearchVisible: false,
+            ),
+          ).showModal(context);
         },
+        //   showDialog(
+        //       context: context,
+        //       builder: (BuildContext context) {
+        //         return Alert(
+        //           content: [
+        //             BarcodeWidget(
+        //               barcode: Barcode.qrCode(), // Barcode type and settings
+        //               data: widget.fileURL, // Content
+        //               width: 200,
+        //               height: 200,
+        //               color: Colors.white,
+        //             ),
+        //             const SizedBox(
+        //               width: 10,
+        //               height: 20,
+        //             ),
+        //             SelectableText(
+        //               widget.fileURL,
+        //               style: const TextStyle(
+        //                 fontFamily: 'CascadeCode',
+        //                 color: Colors.white,
+        //               ),
+        //             ),
+        //           ],
+        //         );
+        //       });
+        // },
         child: Container(
             padding: const EdgeInsets.all(10),
             child: Column(
