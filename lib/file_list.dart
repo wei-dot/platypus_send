@@ -14,6 +14,12 @@ class _FileListState extends State<FileList> {
   final List<UploadFile> _files = ApiClient.files;
 
   @override
+  void initState() {
+    super.initState();
+
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsets.all(20),
