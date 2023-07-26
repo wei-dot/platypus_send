@@ -178,9 +178,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   size: 35,
                   color: Colors.white,
                 ),
-                customItemsHeights: [
-                  ...List<double>.filled(MySettingMenuItems.firstItems.length, 48),
-                ],
                 items: [
                   ...MySettingMenuItems.firstItems.map(
                     (item) => DropdownMenuItem<MySettingMenuItem>(
@@ -192,17 +189,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 onChanged: (value) {
                   MySettingMenuItems.onChanged(context, value as MySettingMenuItem);
                 },
-                itemHeight: 48,
-                itemPadding: const EdgeInsets.only(left: 16, right: 16),
-                dropdownWidth: 160,
-                dropdownPadding:
-                    const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-                dropdownDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
+                dropdownStyleData:const DropdownStyleData(
+                  width: 200,
+                  elevation: 8,
+                  padding:  EdgeInsets.symmetric(vertical: 6, horizontal: 8),
                 ),
-                dropdownElevation: 8,
-                offset: const Offset(0, 8),
               ),
             ),
           ),
